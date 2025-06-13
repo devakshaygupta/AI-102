@@ -1,0 +1,11 @@
+azure-ai-textanalytics
+azure-core
+azure-identity
+azure-keyvault-secrets
+certifi
+dotenv
+flask
+matplotlib
+pillow
+pylint
+requests
