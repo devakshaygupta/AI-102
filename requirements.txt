@@ -1,3 +1,5 @@
+azure-ai-inference
+azure-ai-projects
 azure-ai-textanalytics
 azure-core
 azure-identity
@@ -6,6 +8,8 @@ certifi
 dotenv
 flask
 matplotlib
+openai
 pillow
+promptflow
 pylint
 requests

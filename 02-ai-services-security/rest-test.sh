@@ -6,7 +6,7 @@
 # Note: The endpoint URL and subscription key are placeholders and should be replaced with actual values.
 # Define the endpoint and subscription key
 ENDPOINT="https://lab3-11-june.services.ai.azure.com/text/analytics/v3.1/languages"
-SUBSCRIPTION_KEY="ca608cd7178e46e89c5e28cd57031c6e"
+SUBSCRIPTION_KEY="<replace-this>"
 # Define the JSON payload
 PAYLOAD='{
   "documents": [

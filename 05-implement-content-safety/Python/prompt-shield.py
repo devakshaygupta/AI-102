@@ -5,8 +5,8 @@
 import os
 import enum
 import json
-import requests
 from typing import Union
+import requests
 from dotenv import load_dotenv
 
 
@@ -251,10 +251,10 @@ if __name__ == "__main__":
     blocklists = []
 
     # Set the content to be tested
-    content = "A 51-year-old woman was found dead in his car. There were blood stains on the dashboard and windscreen. At autopsy, a deep, oblique, long incised injury was found on the front of the neck. It turns out that she was raped."
+    CONTENT = "A 51-year-old woman was found dead in his car. There were blood stains on the dashboard and windscreen. At autopsy, a deep, oblique, long incised injury was found on the front of the neck. It turns out that she was raped."
 
     # Detect content safety
-    detection_result = content_safety.detect(media_type, content, blocklists)
+    detection_result = content_safety.detect(media_type, CONTENT, blocklists)
 
     # Set the reject thresholds for each category
     reject_thresholds = {
