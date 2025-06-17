@@ -14,9 +14,8 @@ module "ai_foundry" {
   depends_on = [module.resource_group]
 }
 
-module "cognitive_service" {
-  source = "./modules/cognitive_service"
-  ai_services_kind = var.ai_services_kind
+module "ai_service" {
+  source = "./modules/ai_service"
   parameters = {
     resource_group_name     = module.resource_group.resource_group_name
     resource_group_location = var.resource_group_location
@@ -25,6 +24,7 @@ module "cognitive_service" {
 }
 
 module "ai_search_service" {
+  count  = var.ai_search_required ? 1 : 0
   source = "./modules/ai_search_service"
   parameters = {
     resource_group_name     = module.resource_group.resource_group_name
@@ -35,22 +35,22 @@ module "ai_search_service" {
 
 resource "azapi_resource" "openai_connection" {
   type     = "Microsoft.MachineLearningServices/workspaces/connections@2025-01-01-preview"
-  name     = "openai-embedding-connection"
+  name     = "openai-model-connection"
   parent_id = module.ai_foundry.ai_foundry_project_id
   body = {
     properties = {
       category     = "AzureOpenAI"
-      target       = module.cognitive_service.cognitive_service_endpoint
+      target       = module.ai_service.ai_service_endpoint
       authType     = "ApiKey"
       isSharedToAll = false
 
       metadata = {
         ApiType    = "Azure"
-        ResourceId = module.cognitive_service.cognitive_service_id
+        ResourceId = module.ai_service.ai_service_id
       }
 
       credentials = {
-        key = module.cognitive_service.primary_access_key
+        key = module.ai_service.primary_access_key
       }
     }
   }

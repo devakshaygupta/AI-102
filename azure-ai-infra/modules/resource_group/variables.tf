@@ -1,5 +1,5 @@
 variable "parameters" {
-  type = map
+  type = map(any)
 }
 
 variable "resource_group_name_prefix" {

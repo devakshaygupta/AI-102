@@ -35,8 +35,8 @@ resource "azurerm_container_group" "ai_services_container" {
     }
 
     secure_environment_variables = {
-      "ApiKey"  = azurerm_cognitive_account.cognitive_service.primary_access_key
-      "Billing" = azurerm_cognitive_account.cognitive_service.endpoint
+      "ApiKey"  = azurerm_cognitive_account.ai_service.primary_access_key
+      "Billing" = azurerm_cognitive_account.ai_service.endpoint
     }
   }
 
