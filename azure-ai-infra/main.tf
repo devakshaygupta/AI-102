@@ -17,10 +17,11 @@ module "ai_foundry" {
 module "ai_service" {
   source = "./modules/ai_service"
   parameters = {
-    resource_group_name     = module.resource_group.resource_group_name
+    resource_group_id     = module.resource_group.resource_group_id
+    resource_group_name   = module.resource_group.resource_group_name
     resource_group_location = var.resource_group_location
   }
-  depends_on = [module.resource_group]
+  depends_on = [module.resource_group, module.ai_foundry]
 }
 
 module "ai_search_service" {
@@ -28,6 +29,16 @@ module "ai_search_service" {
   source = "./modules/ai_search_service"
   parameters = {
     resource_group_name     = module.resource_group.resource_group_name
+    resource_group_location = var.resource_group_location
+  }
+  depends_on = [module.resource_group]
+}
+
+module "ai_agent_service" {
+  source = "./modules/ai_agent_service"
+  parameters = {
+    resource_group_id     = module.resource_group.resource_group_id
+    resource_group_name   = module.resource_group.resource_group_name
     resource_group_location = var.resource_group_location
   }
   depends_on = [module.resource_group]
@@ -54,4 +65,5 @@ resource "azapi_resource" "openai_connection" {
       }
     }
   }
+  depends_on = [module.ai_service, module.ai_foundry]
 }

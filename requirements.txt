@@ -1,3 +1,4 @@
+azure-ai-agents
 azure-ai-inference
 azure-ai-projects
 azure-ai-textanalytics
@@ -13,3 +14,4 @@ pillow
 promptflow
 pylint
 requests
+semantic-kernel[azure]

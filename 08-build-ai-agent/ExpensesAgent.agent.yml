@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://aka.ms/ai-foundry-vsc/agent/1.0.0
+version: 1.0.0
+id: asst_CqefeUxF3h8zcYVBtXDBUTBa
+name: ExpensesAgent
+tools:
+  - type: file_search
+    options:
+      vector_store_ids:
+        - vs_qnGUGWWS47PsWleFRPJzdWS4
+  - type: code_interpreter
+    options:
+      file_ids: []
+metadata: {}
+description:
+instructions: >-
+  You are an AI assistant for corporate expenses.
+
+  You answer questions about expenses based on the expenses policy data.
+
+  If a user wants to submit an expense claim, you get their email address, a
+  description of the claim, and the amount to be claimed and write the claim
+  details to a text file that the user can download.
+model:
+  id: agent-model-deployment-gpt-4o
+  options:
+    temperature: 1
+    top_p: 1

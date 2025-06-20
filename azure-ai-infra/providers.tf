@@ -20,5 +20,3 @@ provider "azurerm" {
   features {}
   use_msi = true
 }
-
-provider "azapi" {}

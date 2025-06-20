@@ -1,4 +1,3 @@
-
 resource "azurerm_ai_services" "ai_service" {
   name                = "aiservice-${var.parameters["resource_group_name"]}"
   location            = var.location
@@ -11,8 +10,9 @@ resource "azurerm_cognitive_deployment" "model_deployment" {
   cognitive_account_id = azurerm_ai_services.ai_service.id
 
   model {
-    format = var.deployment_format
-    name   = var.deployment_model_name
+    format  = var.deployment_format
+    name    = var.deployment_model_name
+    version = "2024-08-06"
   }
 
   sku {

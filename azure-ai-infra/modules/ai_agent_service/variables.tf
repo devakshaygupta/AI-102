@@ -4,6 +4,12 @@ variable "parameters" {
   default     = {}
 }
 
+variable "location" {
+  type        = string
+  description = "The location for the AI services."
+  default     = "eastus2"
+}
+
 variable "ai_services_sku" {
   type        = string
   description = "The sku name of the Azure Analysis Services server to create."
@@ -26,10 +32,4 @@ variable "deployment_sku_name" {
   type        = string
   description = "The sku name for the model deployment."
   default     = "Standard"
-}
-
-variable "location" {
-  type        = string
-  description = "The location for the AI services."
-  default     = "eastus2"
 }
