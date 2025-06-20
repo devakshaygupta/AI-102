@@ -73,3 +73,27 @@ resource "azurerm_role_assignment" "ai_foundry_blob_reader" {
 
   depends_on = [azurerm_ai_foundry.ai_foundry_hub, azurerm_storage_account.ai_foundry_storage_account]
 }
+
+
+resource "azapi_resource" "openai_connection" {
+  type      = "Microsoft.MachineLearningServices/workspaces/connections@2025-01-01-preview"
+  name      = "openai-model-connection"
+  parent_id = azurerm_ai_foundry_project.ai_foundry_project.id
+  body = {
+    properties = {
+      category      = "AzureOpenAI"
+      target        = var.parameters["ai_service_endpoint"]
+      authType      = "ApiKey"
+      isSharedToAll = false
+
+      metadata = {
+        ApiType    = "Azure"
+        ResourceId = var.parameters["ai_service_id"]
+      }
+
+      credentials = {
+        key = var.parameters["ai_service_primary_access_key"]
+      }
+    }
+  }
+}

@@ -6,22 +6,27 @@ module "resource_group" {
 }
 
 module "ai_foundry" {
+  count = var.ai_foundry_required ? 1 : 0
   source = "./modules/ai_foundry"
   parameters = {
     resource_group_name     = module.resource_group.resource_group_name
     resource_group_location = var.resource_group_location
+    ai_service_endpoint = module.ai_service[0].ai_service_endpoint
+    ai_service_id = module.ai_service[0].ai_service_id
+    ai_service_primary_access_key = module.ai_service[0].primary_access_key
   }
   depends_on = [module.resource_group]
 }
 
 module "ai_service" {
+  count = var.ai_service_required ? 1 : 0
   source = "./modules/ai_service"
   parameters = {
     resource_group_id     = module.resource_group.resource_group_id
     resource_group_name   = module.resource_group.resource_group_name
     resource_group_location = var.resource_group_location
   }
-  depends_on = [module.resource_group, module.ai_foundry]
+  depends_on = [module.resource_group]
 }
 
 module "ai_search_service" {
@@ -35,6 +40,7 @@ module "ai_search_service" {
 }
 
 module "ai_agent_service" {
+  count = var.ai_agent_required ? 1 : 0
   source = "./modules/ai_agent_service"
   parameters = {
     resource_group_id     = module.resource_group.resource_group_id
@@ -44,26 +50,13 @@ module "ai_agent_service" {
   depends_on = [module.resource_group]
 }
 
-resource "azapi_resource" "openai_connection" {
-  type     = "Microsoft.MachineLearningServices/workspaces/connections@2025-01-01-preview"
-  name     = "openai-model-connection"
-  parent_id = module.ai_foundry.ai_foundry_project_id
-  body = {
-    properties = {
-      category     = "AzureOpenAI"
-      target       = module.ai_service.ai_service_endpoint
-      authType     = "ApiKey"
-      isSharedToAll = false
-
-      metadata = {
-        ApiType    = "Azure"
-        ResourceId = module.ai_service.ai_service_id
-      }
-
-      credentials = {
-        key = module.ai_service.primary_access_key
-      }
-    }
+module "ai_language_service" {
+  source = "./modules/ai_language_service"
+  parameters = {
+    resource_group_id     = module.resource_group.resource_group_id
+    resource_group_name   = module.resource_group.resource_group_name
+    resource_group_location = var.resource_group_location
+    ai_search_service_id = var.ai_search_required ? module.ai_search_service[0].ai_search_service_id : null
   }
-  depends_on = [module.ai_service, module.ai_foundry]
+  depends_on = [module.resource_group]
 }

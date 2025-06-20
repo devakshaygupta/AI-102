@@ -13,5 +13,23 @@ variable "ai_services_kind" {
 variable "ai_search_required" {
   type        = bool
   description = "Flag to indicate if AI Search Service is required."
+  default     = true
+}
+
+variable "ai_service_required" {
+  type        = bool
+  description = "Flag to indicate if AI Service is required."
+  default     = false
+}
+
+variable "ai_foundry_required" {
+  type        = bool
+  description = "Flag to indicate if AI Foundry Service is required."
+  default     = false
+}
+
+variable "ai_agent_required" {
+  type        = bool
+  description = "Flag to indicate if AI Agent Service is required."
   default     = false
 }
