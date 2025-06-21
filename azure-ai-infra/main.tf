@@ -57,6 +57,7 @@ module "ai_language_service" {
     resource_group_name   = module.resource_group.resource_group_name
     resource_group_location = var.resource_group_location
     ai_search_service_id = var.ai_search_required ? module.ai_search_service[0].ai_search_service_id : null
+    ai_search_primary_access_key = var.ai_search_required ? module.ai_search_service[0].ai_search_primary_access_key : null
   }
   depends_on = [module.resource_group]
 }

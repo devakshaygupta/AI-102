@@ -22,7 +22,7 @@ resource "azapi_resource" "ai_language_service" {
   }
   body = {
     sku = {
-      name = var.ai_services_sku
+      name = var.language_services_sku
     }
     kind = "TextAnalytics"
     properties = {
@@ -34,7 +34,8 @@ resource "azapi_resource" "ai_language_service" {
         ipRules             = []
       }
       apiProperties = {
-        qnaAzureSearchEndpointId = var.parameters["ai_search_service_id"]
+        qnaAzureSearchEndpointId = var.parameters["ai_search_service_id"],
+        qnaAzureSearchEndpointKey = var.parameters["ai_search_primary_access_key"]
       }
       publicNetworkAccess = "Enabled"
       disableLocalAuth    = false

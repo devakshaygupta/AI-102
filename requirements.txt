@@ -1,5 +1,6 @@
 azure-ai-agents
 azure-ai-inference
+azure-ai-language-questionanswering
 azure-ai-projects
 azure-ai-textanalytics
 azure-core

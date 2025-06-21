@@ -4,10 +4,10 @@ variable "parameters" {
   default     = {}
 }
 
-variable "ai_services_sku" {
+variable "language_services_sku" {
   type        = string
-  description = "The sku name of the Azure Analysis Services server to create."
-  default     = "F0"
+  description = "The sku name of the Azure Language Services server to create."
+  default     = "S"
 }
 
 variable "deployment_sku_name" {
